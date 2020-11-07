@@ -27,7 +27,7 @@ Import:
 
     Construct A Client:
 
-        client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+        client, err := ConstructClient(clientSecret, clientID, redirectURI, useProduction)
         if err != nil {
             t.Error(err.Error())
             return 
@@ -72,6 +72,30 @@ Import:
 
 - GetPowerZones - Will GET the power zones for a user
 - UpdatePowerZones - Will PUT data on a users specific Power Zones
+
+## Full Working Examples
+
+Refer to the [unit tests](https://github.com/mornindew/wahoo_client/tree/main/test) to see many more full working examples.
+
+    func TestWahooGetSpecificWorkoutSummary(t *testing.T) {
+        workoutID := 55833989
+        client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
+        if err != nil {
+            t.Error(err.Error())
+            return
+        }
+        //Get the workout data
+        workout, err := client.GetWorkoutSummary(accessToken, workoutID)
+        if err != nil {
+            t.Error(err.Error())
+            return
+        }
+
+        if workout == nil {
+            t.Error("Empty Workout: ")
+            return
+        }
+    }
 
 ## Issues
 
