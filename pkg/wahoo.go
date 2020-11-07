@@ -18,12 +18,16 @@ type Client struct {
 	clientID     string
 }
 
-//ConstructClient - Constructs the Client
-func ConstructClient(wahooClientSecret, wahooClientID string, useProduction bool) (*Client, error) {
+/*
+ConstructClient -
+
+
+*/
+func ConstructClient(wahooClientSecret, wahooClientID, redirectURI string, useProduction bool) (*Client, error) {
 
 	clientToReturn := &Client{
 		clientSecret: wahooClientSecret,
-		redirectURI:  "https://www.reddiyo.com",
+		redirectURI:  redirectURI,
 		clientID:     wahooClientID,
 	}
 

@@ -13,20 +13,22 @@ var clientSecret string
 var clientID string
 var accessToken string
 var useProduction bool
+var redirectURI string
 
 func init() {
 
 	clientSecret = os.Getenv("WAHOO_CLIENT_SECRET")
 	clientID = os.Getenv("WAHOO_CLIENT_ID")
-	accessToken = "M_Ypa_O05izTArhpl6q4kjvsMMXcxtATfRK4laEG8OU"
+	accessToken = ""
 	useProduction = true
+	redirectURI = ""
 
 }
 func TestWahooGetToken(t *testing.T) {
 	//Get an oath code - https://api.wahooligan.com/oauth/authorize?client_id=<YOUR CLIENT ID>&redirect_uri=<YOUR REDIRECT URI>&response_type=code&scope=<YOUR SCOPES>
 	code := "" //Plug in your token that you got from the oauth flow
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -55,12 +57,12 @@ func TestWahooGetToken(t *testing.T) {
 
 func TestWahooGetWorkouts(t *testing.T) {
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
 	}
-	//get the token
+	//get the workouts
 	workouts, err := client.GetAllWorkouts(accessToken, 1, 45)
 	if err != nil {
 		t.Error("Error Getting the Token. " + err.Error())
@@ -79,7 +81,7 @@ func TestWahooGetWorkouts(t *testing.T) {
 func TestWahooGetSpecificWorkoutSummary(t *testing.T) {
 	workoutID := 55833989
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -100,7 +102,7 @@ func TestWahooGetSpecificWorkoutSummary(t *testing.T) {
 func TestWahooGetSpecificWorkout(t *testing.T) {
 	workoutID := 55695256
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -120,7 +122,7 @@ func TestWahooGetSpecificWorkout(t *testing.T) {
 
 func TestGetHeartRateZone(t *testing.T) {
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -140,7 +142,7 @@ func TestGetHeartRateZone(t *testing.T) {
 
 func TestSetHeartRateZone(t *testing.T) {
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -172,7 +174,7 @@ func TestSetHeartRateZone(t *testing.T) {
 
 func TestGetPowerZone(t *testing.T) {
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -192,7 +194,7 @@ func TestGetPowerZone(t *testing.T) {
 
 func TestSetPowerZones(t *testing.T) {
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -227,7 +229,7 @@ func TestSetPowerZones(t *testing.T) {
 
 func TestGetUser(t *testing.T) {
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -247,7 +249,7 @@ func TestGetUser(t *testing.T) {
 
 func TestUpdateUser(t *testing.T) {
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -271,7 +273,7 @@ func TestUpdateUser(t *testing.T) {
 
 func TestWahooUpdateSpecificWorkout(t *testing.T) {
 	workoutID := 55695256
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -306,7 +308,7 @@ func TestWahooUpdateSpecificWorkout(t *testing.T) {
 
 func TestWahooDELETESpecificWorkout(t *testing.T) {
 	workoutID := 55833989
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -322,7 +324,7 @@ func TestWahooDELETESpecificWorkout(t *testing.T) {
 func TestWahooRefreshToken(t *testing.T) {
 	refreshToken := "" //Put in your refresh token
 
-	client, err := wahoo.ConstructClient(clientSecret, clientID, useProduction)
+	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
 		return
