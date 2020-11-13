@@ -19,9 +19,9 @@ func init() {
 
 	clientSecret = os.Getenv("WAHOO_CLIENT_SECRET")
 	clientID = os.Getenv("WAHOO_CLIENT_ID")
-	accessToken = ""
+	accessToken = "M_Ypa_O05izTArhpl6q4kjvsMMXcxtATfRK4laEG8OU"
 	useProduction = true
-	redirectURI = ""
+	redirectURI = "https://www.reddiyo.com"
 
 }
 func TestWahooGetToken(t *testing.T) {
@@ -80,7 +80,6 @@ func TestWahooGetWorkouts(t *testing.T) {
 
 func TestWahooGetSpecificWorkoutSummary(t *testing.T) {
 	workoutID := 55833989
-
 	client, err := wahoo.ConstructClient(clientSecret, clientID, redirectURI, useProduction)
 	if err != nil {
 		t.Error(err.Error())
